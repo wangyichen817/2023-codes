@@ -1,0 +1,4 @@
+﻿  0507.c
+D:\vs2019code\guess_num\guess_num\0507.c(13,31): warning C4244: “=”: 从“double”转换到“float”，可能丢失数据
+D:\vs2019code\guess_num\guess_num\0507.c(22,35): warning C4244: “=”: 从“double”转换到“float”，可能丢失数据
+  guess_num.vcxproj -> D:\vs2019code\guess_num\Debug\guess_num.exe
