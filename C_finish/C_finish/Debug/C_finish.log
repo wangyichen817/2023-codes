@@ -1,0 +1,4 @@
+﻿  test.c
+D:\vs2019code\C_finish\C_finish\test.c(66,6): warning C4013: “gets”未定义；假设外部返回 int
+D:\vs2019code\C_finish\C_finish\test.c(73,20): warning C4047: “!=”:“char *”与“int”的间接级别不同
+  C_finish.vcxproj -> D:\vs2019code\C_finish\Debug\C_finish.exe
