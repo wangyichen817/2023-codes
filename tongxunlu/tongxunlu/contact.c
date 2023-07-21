@@ -1,19 +1,39 @@
 #include"contact.h"
 
 //格式化通讯录
+//void initcontact(contact* p)
+//{
+//	memset(p->data, 0, sizeof(p->data));
+//}
+
 void initcontact(contact* p)
 {
-	memset(p->data, 0, sizeof(p->data));
+	p->data = (peoinfo*)malloc(3 * sizeof(peoinfo));
+	if (p->data == NULL)
+	{
+		perror("initcontact");
+		return;
+	}
+	p->sz = 0;
+	p->cap = 3;
 }
 
 //增加联系人
 void Add(contact* pc)
 {
-	if (pc->sz == max)
+	if (pc->sz == pc->cap)
 	{
-		printf("通讯录满员了！\n");
-		return;
+		pc->data = (peoinfo *)realloc((void*)pc->data, (pc->cap+2) * sizeof(peoinfo));
+		if (pc->data == NULL)
+		{
+			perror("pc->data");
+			return;
+		}
+		pc->cap += 2;
+		printf("add two\n");
 	}
+	//动态增加空间
+
 		printf("请输入名字:");
 		scanf("%s", pc->data[pc->sz].name);
 		printf("请输入性别:");
@@ -145,4 +165,13 @@ void Sort(contact* p, int sz)
 	qsort(p->data, sz, sizeof(p->data[0]), strcmp);
 	printf("排序完成\n");
 	Show(p);
+}
+
+//释放内存
+void dest(contact* p)
+{
+	free(p->data);
+	p->data = NULL;
+	p->sz = 0;
+	p->cap = 0;
 }

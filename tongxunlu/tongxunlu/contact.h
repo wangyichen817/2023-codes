@@ -2,7 +2,8 @@
 #pragma once
 #include<string.h>
 #include<stdio.h>
-#define max 100
+#include<stdlib.h>
+//#define max 100
 
 //个人的信息
 typedef struct peoinfo
@@ -17,14 +18,15 @@ typedef struct peoinfo
 //通讯录
 typedef struct contact
 {
-	peoinfo data[max];
-	int sz;
+	peoinfo* data;//指向存放数据的空间,动态增加空间，返回起始地址，因此data需要改为指针变量
+	int sz;//通讯录当前的有效元素的个数
+	int cap;//通讯录当前的最大容量
 }contact;
 
 //通讯录功能
 enum opt
 {
-	exit,
+	Exit,
 	add,
 	del,
 	search,
@@ -49,3 +51,5 @@ void Search(const contact*);
 void Modify(contact*);
 //排序联系人
 void Sort(contact* p,int sz);
+//释放内存
+void dest(contact*);

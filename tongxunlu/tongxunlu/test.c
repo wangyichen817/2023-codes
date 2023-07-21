@@ -28,7 +28,8 @@ void test()
 		scanf("%d", &num);
 		switch (num)
 		{
-		case exit:
+		case Exit:
+			dest(&con);
 			break;
 		case add:
 			Add(&con);
