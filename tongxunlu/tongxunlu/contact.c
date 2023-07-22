@@ -1,11 +1,10 @@
 #include"contact.h"
 
-//格式化通讯录
+//通讯录置0
 //void initcontact(contact* p)
 //{
 //	memset(p->data, 0, sizeof(p->data));
 //}
-
 void initcontact(contact* p)
 {
 	p->data = (peoinfo*)malloc(3 * sizeof(peoinfo));
@@ -15,23 +14,57 @@ void initcontact(contact* p)
 		return;
 	}
 	p->sz = 0;
-	p->cap = 3;
+	p->cap = 3;	
+	loadcontact(p);
 }
 
-//增加联系人
-void Add(contact* pc)
+//写入通讯录：将文件中的通讯录数据写入通信录中
+void loadcontact(contact* p)
+{
+	FILE* pf = fopen("contact.dat", "rb");
+	if (pf == NULL)
+	{
+		perror("initcontact");
+		return;
+	}
+	peoinfo tmp = { 0 };
+	while (fread(&tmp, sizeof(peoinfo), 1, pf))//fread返回抓取的数据个数，没有返回0
+	{
+		//检测是否需要扩容
+		int num = addplace(p);
+		if (num == 0)
+			return;
+		p->data[p->sz] = tmp;
+		p->sz++;
+
+	}
+	fclose(pf);
+	pf = NULL;
+}
+
+//增容：动态增容
+int addplace(contact* pc)
 {
 	if (pc->sz == pc->cap)
 	{
-		pc->data = (peoinfo *)realloc((void*)pc->data, (pc->cap+2) * sizeof(peoinfo));
+		pc->data = (peoinfo*)realloc((void*)pc->data, (pc->cap + 2) * sizeof(peoinfo));
 		if (pc->data == NULL)
 		{
-			perror("pc->data");
-			return;
+			perror("addplace");
+			return 0;
 		}
 		pc->cap += 2;
-		printf("add two\n");
+		printf("增容成功\n");
+		return 1;
 	}
+}
+
+//1.增加联系人
+void Add(contact* pc)
+{
+	int num = addplace(pc);
+	if (num == 0)
+		return;
 	//动态增加空间
 
 		printf("请输入名字:");
@@ -48,7 +81,7 @@ void Add(contact* pc)
 		printf("成功增加！\n");
 }
 
-//显示联系人
+//5.显示联系人
 void Show(const contact* p)
 {
 	int i = 0;
@@ -64,7 +97,7 @@ void Show(const contact* p)
 }
 
 
-//查找
+//查找名字(在功能2和3中都需要)
 int findby_name(contact* p, char name1[])
 {
 	for (int i = 0; i < p->sz; i++)
@@ -78,7 +111,7 @@ int findby_name(contact* p, char name1[])
 }
 
 
-//删除联系人
+//2.删除联系人
 void Del(contact* p)
 {
 	if (p->sz == 0)
@@ -107,7 +140,7 @@ void Del(contact* p)
 	printf("删除成功\n");
 }
 
-//查找联系人
+//3.查找联系人
 void Search(const contact* p)
 {
 	if (p->sz == 0)
@@ -134,7 +167,7 @@ void Search(const contact* p)
 			p->data[ret].addr);
 }
    
-//更改联系人
+//4.更改联系人
 void Modify(contact* p)
 {
 	char name1[20];
@@ -159,7 +192,7 @@ void Modify(contact* p)
 	printf("修改成功！\n");
 }
 
-//联系人排序
+//6.联系人排序
 void Sort(contact* p, int sz)
 {
 	qsort(p->data, sz, sizeof(p->data[0]), strcmp);
@@ -167,11 +200,30 @@ void Sort(contact* p, int sz)
 	Show(p);
 }
 
-//释放内存
+//0.释放内存
 void dest(contact* p)
 {
 	free(p->data);
 	p->data = NULL;
 	p->sz = 0;
 	p->cap = 0;
+}
+
+//0.写入数据:将通讯录存储到文件中
+void writ(contact* p)
+{
+	FILE* pf = fopen("contact.dat", "wb");
+	if (pf == NULL)
+	{
+		perror("writ");
+		return;
+	}
+	//写入
+	for (int i = 0; i < p->sz; i++)
+	{
+		fwrite(p->data+i, sizeof(peoinfo), 1, pf);
+	}
+	//关闭文件
+	fclose(pf);
+	pf = NULL;
 }

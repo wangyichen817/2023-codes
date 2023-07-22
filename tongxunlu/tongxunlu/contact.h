@@ -53,3 +53,9 @@ void Modify(contact*);
 void Sort(contact* p,int sz);
 //释放内存
 void dest(contact*);
+//存储通讯录
+void writ(contact* );
+//增容
+int addplace(contact* pc);
+//写入通讯录
+void loadcontact(contact* p);

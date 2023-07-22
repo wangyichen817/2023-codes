@@ -1,3 +1,6 @@
 ﻿  contact.c
-D:\vs2019code\tongxunlu\tongxunlu\contact.c(123,25): warning C4090: “函数”: 不同的“const”限定符
+D:\vs2019code\tongxunlu\tongxunlu\contact.c(157,25): warning C4090: “函数”: 不同的“const”限定符
+  test.c
+  正在生成代码...
+D:\vs2019code\tongxunlu\tongxunlu\contact.c(61): warning C4715: “addplace”: 不是所有的控件路径都返回值
   tongxunlu.vcxproj -> D:\vs2019code\tongxunlu\Debug\tongxunlu.exe

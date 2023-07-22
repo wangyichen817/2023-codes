@@ -29,6 +29,7 @@ void test()
 		switch (num)
 		{
 		case Exit:
+			writ(&con);
 			dest(&con);
 			break;
 		case add:
