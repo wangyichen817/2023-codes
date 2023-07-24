@@ -36,7 +36,6 @@ void loadcontact(contact* p)
 			return;
 		p->data[p->sz] = tmp;
 		p->sz++;
-
 	}
 	fclose(pf);
 	pf = NULL;
