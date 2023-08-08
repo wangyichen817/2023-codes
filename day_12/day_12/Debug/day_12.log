@@ -1,0 +1,5 @@
+﻿  test.c
+D:\vs2019code\day_12\day_12\test.c(71,6): warning C4013: “gets”未定义；假设外部返回 int
+D:\vs2019code\day_12\day_12\test.c(86,11): warning C4477: “printf”: 格式字符串“%s”需要类型“char *”的参数，但可变参数 1 拥有了类型“int”
+D:\vs2019code\day_12\day_12\test.c(90,9): warning C4477: “printf”: 格式字符串“%s”需要类型“char *”的参数，但可变参数 1 拥有了类型“int”
+  day_12.vcxproj -> D:\vs2019code\day_12\Debug\day_12.exe
