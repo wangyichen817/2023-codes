@@ -1,9 +1,26 @@
 #define _CRT_SECURE_NO_WARNINGS 1
-#include<stdio.h>
+#include"List.h"
+
+void test1()
+{
+	LTNode* plist = LTInit();
+	LTPushBack(plist, 1);
+	LTPushBack(plist, 2);
+	LTPushBack(plist, 3);
+	LTPushBack(plist, 4);
+	LTPushBack(plist, 5);
+	LTPushFront(plist, 0);
+	LTPopFront(plist);
+	LTPopFront(plist);
+	LTInsert(plist->next, 50);
+	LTErase(plist->next);
+	LTPrint(plist);
+}
+
 
 int main()
 {
-
+	test1();
 	return 0;
 }
 
