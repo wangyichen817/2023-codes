@@ -76,26 +76,25 @@ void HeapPush(HP* php, HPDataType x)       //插入数据
 
 void AdjustDown(HPDataType* a, int parent,int size)        //向下调整
 {
-	int lchild = parent * 2 + 1;
-	int rchild = parent * 2 + 2;
-	int minchild = lchild;
-
-	//避免没有右孩子节点会越界的情况，以及防止右节点重复利用已删除的值
-	if (lchild < size && rchild < size)
+	int child = parent * 2 + 1;
+	while (child<size)   //父节点大于子节点中的最小节点，并且父节点不是叶节点(即左孩子存在)
 	{
-		minchild = a[lchild] < a[rchild] ? lchild : rchild;
-	}
-
-	while (a[parent] > a[minchild] && minchild < size)   //父节点大于子节点中的最小节点，并且父节点不是叶节点(即左孩子存在)
-	{
-		Swap(&a[minchild], &a[parent]);
-		parent = minchild;
-		lchild = parent * 2 + 1;
-		rchild = parent * 2 + 2;
-		minchild = lchild;
-		if (lchild < size && rchild < size )
+		//找出小的孩子并保证没有右节点的情况下，小的为左孩子
+		if (child + 1 < size && a[child] > a[child + 1])
 		{
-			minchild = a[lchild] < a[rchild] ? lchild : rchild;
+			child++;
+		}
+
+		//向下调整
+		if (a[child] < a[parent])
+		{
+			Swap(&a[child], &a[parent]);
+			parent = child;
+			child = parent * 2 + 1;
+		}
+		else
+		{
+			break;
 		}
 	}
 }

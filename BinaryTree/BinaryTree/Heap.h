@@ -4,6 +4,10 @@
 #include<stdlib.h>
 #include<assert.h>
 #include<stdbool.h>
+#include<string.h>
+#include<time.h>
+
+
 
 
 typedef int HPDataType;
@@ -21,7 +25,7 @@ void HeapPrint(HP* php);
 void HeapInit(HP* php);
 void HeapDestroy(HP* php);
 void HeapPush(HP* php,HPDataType x);
-void AdjustUp(HPDataType* a, int child);            //向上调整堆
+void AdjustUp(HPDataType* a, int child);                         //向上调整堆
 void HeapPop(HP* php);
 void AdjustDown(HPDataType* a, int parent, int size);            //向下调整堆
 HPDataType HeapTop(HP* php);
