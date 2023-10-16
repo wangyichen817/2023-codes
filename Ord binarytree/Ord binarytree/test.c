@@ -4,8 +4,6 @@
 #include<assert.h>
 
 
-
-
 //重点不是增删查改，学习二叉树结构
 typedef struct BinaryTreeNode
 {
@@ -13,6 +11,45 @@ typedef struct BinaryTreeNode
 	struct BinaryTreeNode* right;
 	int val;
 }BTNode;
+
+#include"queue.h"
+
+
+//层序遍历：利用队列先进先出的特点，上一层带下一层
+void LevelOrder(BTNode* root)
+{
+	Que q;
+	QueueInit(&q);
+
+	if (root)
+	{
+		QueuePush(&q, root);
+	}
+	while (!QueueEmpty(&q))
+	{
+		BTNode* front = Queuefront(&q);
+		printf("%d ", front->val);
+		if (front->left)
+		{
+			QueuePush(&q, front->left);
+		}
+		if (front->right)
+		{
+			QueuePush(&q, front->right);
+		}
+		QueuePop(&q);
+	}
+	printf("\n");
+
+	QueueDestroy(&q);
+
+}
+
+
+
+
+
+
 
 BTNode* BuyNode(int x)
 {
@@ -124,8 +161,38 @@ int TreeKLeafSize(BTNode* root,int k)
 	return TreeKLeafSize(root->left,k-1) + TreeKLeafSize(root->right,k-1);
 }
 
+void Treedestory(BTNode* root)
+{
+	if (root == NULL)
+	{
+		return;
+	}
+	Treedestory(root->left);
+	Treedestory(root->right);
+	free(root);
+}
 
 
+BTNode* TreeFind(BTNode* root, int x)
+{
+	if (root == NULL)
+	{
+		return NULL;
+	}
+	else if (root->val == x)
+	{
+		return root;
+	}
+	if (TreeFind(root->left, x))
+	{
+		return TreeFind(root->left,x);
+	}
+	if (TreeFind(root->right, x))
+	{
+		return TreeFind(root->right,x);
+	}
+	return NULL;
+}
 
 int main()
 {
@@ -141,11 +208,14 @@ int main()
 	node4->left = node5;
 	node4->right = node6;
 
-	PreOrder(node1);
+	//PreOrder(node1);
 	//InOrder(node1);
 	//EndOrder(node1);
 
-	int n= TreeKLeafSize(node1, 2);
-	printf("%d", n);
+	//int n= TreeKLeafSize(node1, 2);
+	//printf("%d", n);
+
+	//BTNode* a = TreeFind(node1, 6);
+	LevelOrder(node1);
 	return 0;
 }
